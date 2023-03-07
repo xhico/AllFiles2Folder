@@ -1,5 +1,5 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# !/usr/bin/python3
 
 import os
 from glob import glob
