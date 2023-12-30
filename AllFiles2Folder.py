@@ -5,36 +5,52 @@ import os
 from glob import glob
 
 
-def main():
-    # Get user input for main folder
-    print("-----------------------")
-    MAIN_FOLDER = input("MAIN_FOLDER: ")
+def organize_files(main_folder):
+    """
+    Organize files in the specified main folder and its subfolders.
 
-    # Find all files in main folder and its subfolders
+    Parameters:
+    - main_folder (str): The path to the main folder containing files to be organized.
+    """
     print("-----------------------")
-    subFolders = [] # list to store subfolders
-    allFiles = [y for x in os.walk(MAIN_FOLDER) for y in glob(os.path.join(x[0], '*'))]
-    for idx, src in enumerate(allFiles):
+    print("Organizing files in:", main_folder)
+
+    # list to store subfolders
+    subfolders = []
+    all_files = [y for x in os.walk(main_folder) for y in glob(os.path.join(x[0], '*'))]
+
+    for idx, src in enumerate(all_files):
         filename = os.path.basename(src)
         folder = os.path.dirname(src)
-        print(str(idx) + ": " + folder + " - " + filename)
+        print(f"{idx}: {folder} - {filename}")
 
         # Move file to main folder
-        os.rename(src, os.path.join(MAIN_FOLDER, filename))
+        os.rename(src, os.path.join(main_folder, filename))
 
-        # Add subFolder to subFolders
-        if folder not in subFolders and folder != MAIN_FOLDER:
-            subFolders.append(folder)
+        # Add subfolder to subfolders
+        if folder not in subfolders and folder != main_folder:
+            subfolders.append(folder)
 
-    # Delete subFolders
-    for folder in subFolders:
+    # Delete subfolders
+    for folder in subfolders:
         os.rmdir(folder)
 
 
-if __name__ == '__main__':
+def main():
+    """
+    Main function to execute file organization.
+    """
     try:
-        main()
+        # Get user input for main folder
+        main_folder = input("MAIN_FOLDER: ")
+        organize_files(main_folder)
+
     except Exception as ex:
-        print(ex)
+        print(f"An error occurred: {ex}")
+
     finally:
         print("END")
+
+
+if __name__ == '__main__':
+    main()
