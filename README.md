@@ -38,7 +38,7 @@ Have you ever wanted to organize a cluttered folder by moving all files to one l
 3. Run the script:
 
     ```bash
-    python AllFiles2Folder.py
+    python3 AllFiles2Folder.py
     ```
 
 ## Usage
